@@ -6,31 +6,46 @@
   <title>25th Anniversary Invitation</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    body { overflow-x: hidden; margin: 0; }
+    body { overflow-x: hidden; margin: 0; font-family: 'Playfair Display', serif; }
     #canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.5; }
-    .love-letter { transform-origin: center; }
+    .love-letter { transform-origin: center; background: linear-gradient(to bottom right, #4B0101, #C0C0C0); }
     .heart { animation: heartbeat 2s infinite ease-in-out; }
+    .photo { transition: transform 0.3s ease; }
+    .photo:hover { transform: scale(1.1); }
+    .timeline-item { opacity: 0; transform: translateY(50px); }
+    .romantic-text { animation: glow 2s infinite ease-in-out; text-shadow: 0 0 10px rgba(255, 255, 255, 0.7); }
     @keyframes heartbeat {
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.1); }
     }
+    @keyframes glow {
+      0%, 100% { text-shadow: 0 0 10px rgba(255, 255, 255, 0.7); }
+      50% { text-shadow: 0 0 20px rgba(255, 255, 255, 1); }
+    }
+    @media (max-width: 640px) {
+      .max-w-md { max-width: 90%; }
+    }
   </style>
 </head>
-<body class="bg-gray-900 text-white font-serif">
+<body class="bg-gray-900 text-white">
   <canvas id="canvas"></canvas>
 
-  <!-- Love Letter Animation -->
-  <div id="love-letter" class="love-letter fixed inset-0 bg-gradient-to-br from-gray-800 to-silver-500 flex items-center justify-center">
-    <div class="text-center">
-      <h1 class="text-3xl md:text-5xl text-white font-bold mb-4">A Love Letter Awaits</h1>
-      <p class="text-base md:text-lg text-gray-300">Tap to unfold our story</p>
+  <!-- Romantic Love Letter Screen -->
+  <div id="love-letter" class="love-letter fixed inset-0 flex items-center justify-center">
+    <div class="text-center px-4">
+      <h1 class="text-4xl md:text-6xl text-white font-bold mb-4 font-['Great_Vibes'] romantic-text">Our Love Story Unfolds</h1>
+      <p class="text-base md:text-lg text-gray-200 italic">Tap to open our hearts</p>
+      <svg class="heart w-12 h-12 text-red-500 mx-auto mt-4" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+      </svg>
     </div>
   </div>
 
   <!-- Main Invitation Content -->
   <div id="invitation" class="hidden min-h-screen flex flex-col items-center justify-center py-8 px-4">
-    <h1 class="text-4xl md:text-6xl font-bold text-silver-300 mb-4 flex items-center">
+    <h1 class="text-4xl md:text-6xl font-bold text-[#C0C0C0] mb-4 flex items-center font-['Great_Vibes']">
       <svg class="heart w-10 h-10 text-red-500 mr-2" fill="currentColor" viewBox="0 0 24 24">
         <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
       </svg>
@@ -42,19 +57,62 @@
     <!-- Event Details -->
     <div class="bg-gray-800 p-6 rounded-lg shadow-lg text-center mb-6 max-w-md">
       <p class="text-base mb-2"><strong>Date:</strong> May 6, 2025</p>
-      <p class="text-base mb-2"><strong>Time:</strong> 7:00 PM</p>
+      <p class="text-base mb-2"><strong>Time:</strong> 6:00 PM</p>
       <p class="text-base mb-2"><strong>Venue:</strong> Teetu Sweets & Restaurant, Radhanagar Fatehpur</p>
+      <p class="text-base mb-2"><strong>RSVP:</strong> [Your Email/Phone]</p>
+    </div>
+
+    <!-- Romantic Timeline -->
+    <div class="max-w-md mx-auto mb-8">
+      <h2 class="text-2xl md:text-3xl font-bold text-[#C0C0C0] mb-4 text-center font-['Great_Vibes']">Our Love Story</h2>
+      <div class="space-y-6">
+        <div class="timeline-item flex items-center">
+          <img src="https://via.placeholder.com/120x80?text=Wedding+Day" class="w-24 h-16 rounded-lg shadow-md mr-3 photo" alt="Wedding Day" onerror="this.src='https://dummyimage.com/120x80/ccc/fff&text=Wedding+Day'">
+          <div>
+            <h3 class="text-lg font-bold text-[#C0C0C0]">2000: Our Wedding Day</h3>
+            <p class="text-sm text-gray-400">The day we vowed to love forever under a sky of stars.</p>
+          </div>
+        </div>
+        <div class="timeline-item flex items-center">
+          <img src="https://via.placeholder.com/120x80?text=First+Child" class="w-24 h-16 rounded-lg shadow-md mr-3 photo" alt="First Child" onerror="this.src='https://dummyimage.com/120x80/ccc/fff&text=First+Child'">
+          <div>
+            <h3 class="text-lg font-bold text-[#C0C0C0]">2002: Our First Child</h3>
+            <p class="text-sm text-gray-400">Our family grew, and so did our hearts.</p>
+          </div>
+        </div>
+        <div class="timeline-item flex items-center">
+          <img src="https://via.placeholder.com/120x80?text=Complete+Us" class="w-24 h-16 rounded-lg shadow-md mr-3 photo" alt="Complete Us" onerror="this.src='https://dummyimage.com/120x80/ccc/fff&text=Complete+Us'">
+          <div>
+            <h3 class="text-lg font-bold text-[#C0C0C0]">2015: Complete Us</h3>
+            <p class="text-sm text-gray-400">A decade of laughter, tears, and unbreakable love.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RSVP Form -->
+    <div class="max-w-md mx-auto bg-gray-800 p-6 rounded-lg shadow-lg mb-8">
+      <h2 class="text-2xl md:text-3xl font-bold text-[#C0C0C0] mb-4 text-center font-['Great_Vibes']">Let's Join & Celebrate Together!!</h2>
+      <div class="space-y-4">
+        <input type="text" id="name" placeholder="Your Name" class="w-full p-2 bg-gray-700 rounded-lg text-white text-sm">
+        <input type="email" id="email" placeholder="Your Email" class="w-full p-2 bg-gray-700 rounded-lg text-white text-sm">
+        <select id="attending" class="w-full p-2 bg-gray-700 rounded-lg text-white text-sm">
+          <option value="yes">Yes, I’ll share in your joy!</option>
+          <option value="no">No option you have to come 😁</option>
+        </select>
+        <button id="submit" class="w-full p-2 bg-[#C0C0C0] text-gray-900 font-bold rounded-lg hover:bg-[#A9A9A9] text-sm">Send Your Love</button>
+      </div>
     </div>
 
     <!-- Personalized Love Note -->
     <div class="max-w-md mx-auto text-center">
-      <h2 class="text-2xl md:text-3xl font-bold text-silver-300 mb-4">A Note From Our Hearts 💞</h2>
+      <h2 class="text-2xl md:text-3xl font-bold text-[#C0C0C0] mb-4 font-['Great_Vibes']">A Note From Our Hearts 💞</h2>
       <p class="text-base md:text-lg text-gray-400 italic">Your presence in our lives has made our journey brighter. We can’t wait to celebrate this milestone with you.</p>
     </div>
   </div>
 
   <script>
-    // Canvas Starry Night and Rose Petal Effect
+    // Canvas for Stars, Petals, and Rising Hearts
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
@@ -62,6 +120,7 @@
 
     const stars = [];
     const petals = [];
+    const hearts = [];
     class Star {
       constructor() {
         this.x = Math.random() * canvas.width;
@@ -111,12 +170,42 @@
       }
     }
 
+    class Heart {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = canvas.height + 20;
+        this.size = Math.random() * 10 + 5;
+        this.speedY = -(Math.random() * 2 + 1);
+        this.opacity = Math.random() * 0.5 + 0.3;
+      }
+      update() {
+        this.y += this.speedY;
+        this.opacity -= 0.005;
+        if (this.y < -20 || this.opacity <= 0) {
+          this.y = canvas.height + 20;
+          this.x = Math.random() * canvas.width;
+          this.opacity = Math.random() * 0.5 + 0.3;
+        }
+      }
+      draw() {
+        ctx.fillStyle = `rgba(255, 0, 0, ${this.opacity})`;
+        ctx.beginPath();
+        ctx.moveTo(this.x, this.y - this.size / 2);
+        ctx.bezierCurveTo(this.x - this.size, this.y - this.size, this.x - this.size, this.y + this.size / 2, this.x, this.y + this.size);
+        ctx.bezierCurveTo(this.x + this.size, this.y + this.size / 2, this.x + this.size, this.y - this.size, this.x, this.y - this.size / 2);
+        ctx.fill();
+      }
+    }
+
     function initCanvas() {
-      for (let i = 0; i < 50; i++) { // Reduced for mobile performance
+      for (let i = 0; i < 30; i++) {
         stars.push(new Star());
       }
-      for (let i = 0; i < 10; i++) { // Reduced for mobile performance
+      for (let i = 0; i < 8; i++) {
         petals.push(new Petal());
+      }
+      for (let i = 0; i < 5; i++) {
+        hearts.push(new Heart());
       }
     }
 
@@ -130,30 +219,64 @@
         petal.update();
         petal.draw();
       });
+      hearts.forEach(heart => {
+        heart.update();
+        heart.draw();
+      });
       requestAnimationFrame(animateCanvas);
     }
 
     initCanvas();
     animateCanvas();
 
-    // Love Letter Unfold Animation
+    // Romantic Unfolding Animation
     const loveLetter = document.getElementById('love-letter');
     const invitation = document.getElementById('invitation');
     loveLetter.addEventListener('click', () => {
+      // Create petal shower effect
+      for (let i = 0; i < 20; i++) {
+        setTimeout(() => {
+          petals.push(new Petal());
+        }, i * 50);
+      }
       gsap.to(loveLetter, {
-        scale: 0.5,
+        scale: 0.8,
         opacity: 0,
-        duration: 1,
+        duration: 1.5,
         ease: 'power2.in',
+        clipPath: 'path("M 400 600 C 300 600, 200 500, 200 400 C 200 300, 300 200, 400 200 C 500 200, 600 300, 600 400 C 600 500, 500 600, 400 600")', // Heart-shaped mask
         onComplete: () => {
           loveLetter.classList.add('hidden');
           invitation.classList.remove('hidden');
           gsap.fromTo(invitation.children, 
-            { y: 50, opacity: 0 },
-            { y: 0, opacity: 1, duration: 1, stagger: 0.2, ease: 'power2.out' }
+            { y: 50, opacity: 0, scale: 0.95 },
+            { y: 0, opacity: 1, scale: 1, duration: 1.2, stagger: 0.2, ease: 'power2.out' }
+          );
+          gsap.fromTo('.timeline-item', 
+            { opacity: 0, y: 50 },
+            { opacity: 1, y: 0, duration: 1, stagger: 0.3, ease: 'power2.out', delay: 1 }
           );
         }
       });
+    });
+
+    // RSVP Form Submission
+    document.getElementById('submit').addEventListener('click', () => {
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const attending = document.getElementById('attending').value;
+      if (name && email) {
+        alert(`Thank you, ${name}! Your love has been received (${attending}).`);
+        document.getElementById('name').value = '';
+        document.getElementById('email').value = '';
+        for (let i = 0; i < 8; i++) {
+          setTimeout(() => {
+            petals.push(new Petal());
+          }, i * 100);
+        }
+      } else {
+        alert('Please fill in all fields.');
+      }
     });
   </script>
 </body>
