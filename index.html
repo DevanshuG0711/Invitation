@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>25th Anniversary Invitation</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <style>
+    body { overflow-x: hidden; margin: 0; }
+    #canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.5; }
+    .love-letter { transform-origin: center; }
+    .heart { animation: heartbeat 2s infinite ease-in-out; }
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-white font-serif">
+  <canvas id="canvas"></canvas>
+
+  <!-- Love Letter Animation -->
+  <div id="love-letter" class="love-letter fixed inset-0 bg-gradient-to-br from-gray-800 to-silver-500 flex items-center justify-center">
+    <div class="text-center">
+      <h1 class="text-3xl md:text-5xl text-white font-bold mb-4">A Love Letter Awaits</h1>
+      <p class="text-base md:text-lg text-gray-300">Tap to unfold our story</p>
+    </div>
+  </div>
+
+  <!-- Main Invitation Content -->
+  <div id="invitation" class="hidden min-h-screen flex flex-col items-center justify-center py-8 px-4">
+    <h1 class="text-4xl md:text-6xl font-bold text-silver-300 mb-4 flex items-center">
+      <svg class="heart w-10 h-10 text-red-500 mr-2" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+      </svg>
+      25 Years of Love
+    </h1>
+    <p class="text-lg md:text-xl text-gray-300 mb-4 italic">A Silver Jubilee Celebration</p>
+    <p class="text-base md:text-lg text-gray-400 mb-6 max-w-md text-center">"25 years ago, we began a journey of love. Join us to celebrate the chapters we’ve written together."</p>
+
+    <!-- Event Details -->
+    <div class="bg-gray-800 p-6 rounded-lg shadow-lg text-center mb-6 max-w-md">
+      <p class="text-base mb-2"><strong>Date:</strong> May 6, 2025</p>
+      <p class="text-base mb-2"><strong>Time:</strong> 6:00 PM</p>
+      <p class="text-base mb-2"><strong>Venue:</strong> Teetu Sweets & Restaurant, Radhanagar Fatehpur</p>
+    </div>
+
+    <!-- Personalized Love Note -->
+    <div class="max-w-md mx-auto text-center">
+      <h2 class="text-2xl md:text-3xl font-bold text-silver-300 mb-4">A Note From Our Hearts 💞</h2>
+      <p class="text-base md:text-lg text-gray-400 italic">Your presence in our lives has made our journey brighter. We can’t wait to celebrate this milestone with you.</p>
+    </div>
+  </div>
+
+  <script>
+    // Canvas Starry Night and Rose Petal Effect
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const stars = [];
+    const petals = [];
+    class Star {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 1;
+        this.opacity = Math.random();
+        this.speed = Math.random() * 0.02 + 0.01;
+      }
+      update() {
+        this.opacity += this.speed;
+        if (this.opacity > 1 || this.opacity < 0) this.speed = -this.speed;
+      }
+      draw() {
+        ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    class Petal {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = -10;
+        this.size = Math.random() * 8 + 4;
+        this.speedY = Math.random() * 1.5 + 0.5;
+        this.rotation = Math.random() * 360;
+        this.rotationSpeed = Math.random() * 0.03 - 0.015;
+      }
+      update() {
+        this.y += this.speedY;
+        this.rotation += this.rotationSpeed;
+        if (this.y > canvas.height + 20) {
+          this.y = -10;
+          this.x = Math.random() * canvas.width;
+        }
+      }
+      draw() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.rotation);
+        ctx.fillStyle = 'rgba(255, 0, 0, 0.6)';
+        ctx.beginPath();
+        ctx.ellipse(0, 0, this.size, this.size / 2, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    function initCanvas() {
+      for (let i = 0; i < 50; i++) { // Reduced for mobile performance
+        stars.push(new Star());
+      }
+      for (let i = 0; i < 10; i++) { // Reduced for mobile performance
+        petals.push(new Petal());
+      }
+    }
+
+    function animateCanvas() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      stars.forEach(star => {
+        star.update();
+        star.draw();
+      });
+      petals.forEach(petal => {
+        petal.update();
+        petal.draw();
+      });
+      requestAnimationFrame(animateCanvas);
+    }
+
+    initCanvas();
+    animateCanvas();
+
+    // Love Letter Unfold Animation
+    const loveLetter = document.getElementById('love-letter');
+    const invitation = document.getElementById('invitation');
+    loveLetter.addEventListener('click', () => {
+      gsap.to(loveLetter, {
+        scale: 0.5,
+        opacity: 0,
+        duration: 1,
+        ease: 'power2.in',
+        onComplete: () => {
+          loveLetter.classList.add('hidden');
+          invitation.classList.remove('hidden');
+          gsap.fromTo(invitation.children, 
+            { y: 50, opacity: 0 },
+            { y: 0, opacity: 1, duration: 1, stagger: 0.2, ease: 'power2.out' }
+          );
+        }
+      });
+    });
+  </script>
+</body>
+</html>
